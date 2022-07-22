@@ -20,6 +20,7 @@
         "libs/api-interfaces/src/index.ts"
       ],
       "@fem-production-angular/core-data": ["libs/core-data/src/index.ts"],
+      "@env/*": ["apps/dashboard/src/environments/*"],
       "@fem-production-angular/core-state": ["libs/core-state/src/index.ts"],
       "@fem-production-angular/material": ["libs/material/src/index.ts"]
     }
