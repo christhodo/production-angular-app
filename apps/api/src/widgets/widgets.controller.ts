@@ -1,15 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { WidgetsService } from './widgets.service';
-import { CreateWidgetDto } from './dto/create-widget.dto';
-import { UpdateWidgetDto } from './dto/update-widget.dto';
+import { Widget } from '@fem-production-angular/api-interfaces';
 
 @Controller('widgets')
 export class WidgetsController {
   constructor(private readonly widgetsService: WidgetsService) {}
 
   @Post()
-  create(@Body() createWidgetDto: CreateWidgetDto) {
-    return this.widgetsService.create(createWidgetDto);
+  create(@Body() widget: Widget) {
+    return this.widgetsService.create(widget);
   }
 
   @Get()
@@ -19,16 +26,16 @@ export class WidgetsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.widgetsService.findOne(+id);
+    return this.widgetsService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWidgetDto: UpdateWidgetDto) {
-    return this.widgetsService.update(+id, updateWidgetDto);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() widget: Widget) {
+    return this.widgetsService.update(id, widget);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.widgetsService.remove(+id);
+    return this.widgetsService.remove(id);
   }
 }
