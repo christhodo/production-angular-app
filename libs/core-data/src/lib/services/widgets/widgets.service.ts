@@ -16,7 +16,7 @@ export class WidgetsService {
   }
 
   find(id: string) {
-    return this.http.get<Widget[]>(this.getUrlWithId(id));
+    return this.http.get<Widget>(this.getUrlWithId(id));
   }
 
   create(widget: Widget) {
