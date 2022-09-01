@@ -2,10 +2,10 @@
  * Remove template code below
  */
 :host {
-  display: block;
+  display: grid;
   font-family: sans-serif;
-  min-width: 300px;
-  max-width: 600px;
+  min-width: 100%;
+  max-width: 100%;
   margin: 50px auto;
 }
 
