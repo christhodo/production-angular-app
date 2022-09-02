@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Widget } from '@fem-production-angular/api-interfaces';
+import { WidgetsFacade } from '@fem-production-angular/core-state';
 import { Observable } from 'rxjs';
-import { WidgetsService } from '@fem-production-angular/core-data';
-
-const emptyWidget: Widget = {
-  id: null,
-  title: '',
-  description: '',
-};
 
 @Component({
   selector: 'fem-production-angular-widgets',
@@ -15,13 +9,14 @@ const emptyWidget: Widget = {
   styleUrls: ['./widgets.component.scss'],
 })
 export class WidgetsComponent implements OnInit {
-  widgets$: Observable<Widget[]>;
-  selectedWidget: Widget;
+  allWidgets$: Observable<Widget[]> = this.widgetsFacade.allWidgets$;
+  selectedWidget$: Observable<Widget> = this.widgetsFacade.selectedWidget$;
 
-  constructor(private widgetsService: WidgetsService) {}
+  constructor(private widgetsFacade: WidgetsFacade) {}
 
   ngOnInit(): void {
     this.reset();
+    this.widgetsFacade.mutations$.subscribe((_) => this.reset());
   }
 
   reset() {
@@ -30,34 +25,22 @@ export class WidgetsComponent implements OnInit {
   }
 
   resetForm() {
-    this.selectedWidget = emptyWidget;
+    this.selectWidget(null);
   }
 
   selectWidget(widget: Widget) {
-    this.selectedWidget = widget;
+    this.widgetsFacade.selectWidget(widget?.id);
   }
 
   loadWidgets() {
-    this.widgets$ = this.widgetsService.all();
+    this.widgetsFacade.loadWidgets();
   }
 
   saveWidget(widget: Widget) {
-    if (widget.id) {
-      this.updateWidget(widget);
-    } else {
-      this.createWidget(widget);
-    }
-  }
-
-  createWidget(widget: Widget) {
-    this.widgetsService.create(widget).subscribe((result) => this.reset());
-  }
-
-  updateWidget(widget: Widget) {
-    this.widgetsService.update(widget).subscribe((result) => this.reset());
+    this.widgetsFacade.saveWidget(widget);
   }
 
   deleteWidget(widget: Widget) {
-    this.widgetsService.delete(widget).subscribe((result) => this.reset());
+    this.widgetsFacade.deleteWidget(widget);
   }
 }

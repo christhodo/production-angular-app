@@ -1,7 +1,7 @@
 <div class="component-container">
   <div class="list-component">
     <fem-production-angular-widgets-list
-      [widgets]="widgets$ | async"
+      [widgets]="allWidgets$ | async"
       (selected)="selectWidget($event)"
       (deleted)="deleteWidget($event)"
     >
@@ -9,7 +9,7 @@
   </div>
   <div class="details-component">
     <fem-production-angular-widget-details
-      [widget]="selectedWidget"
+      [widget]="selectedWidget$ | async"
       (saved)="saveWidget($event)"
       (cancelled)="resetForm()"
     >
