@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Widget } from '@fem-production-angular/api-interfaces';
-import { environment } from '@env/environment';
+import { environment } from 'apps/dashboard/src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
